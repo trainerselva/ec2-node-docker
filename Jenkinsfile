@@ -2,9 +2,9 @@ pipeline {
     agent any
     environment {
         // The Docker Hub repository to store the built image
-        DOCKER_IMAGE = 'yourdockerhub/ec2-node-docker'
+        DOCKER_IMAGE = 'trainerselva/jenkinstest'
         // The Private or Public IP of the target deployment EC2 instance
-        TARGET_EC2_IP = '10.0.1.50' 
+        TARGET_EC2_IP = '18.212.212.13' 
     }
     stages {
         stage('Checkout Source Code') {
@@ -16,7 +16,7 @@ pipeline {
         stage('Execute Tests') {
             agent {
                 docker {
-                    image 'node:18-alpine'
+                    image 'node:alpine'
                     args '-u root:root'
                     reuseNode true
                 }
