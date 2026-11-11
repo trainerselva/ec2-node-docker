@@ -43,7 +43,8 @@ pipeline {
         // NEW CONDITIONAL LOGIC: This stage ONLY runs on the main branch
         stage('Deploy to Target EC2') {
             when {
-                branch 'main'
+                // Evaluates true whether Jenkins sees the branch as 'main' or 'origin/main'
+                expression { env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH == 'main' }
             }            
             steps {
                 // Use the SSH Agent plugin to connect to the target EC2 instance
