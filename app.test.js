@@ -2,15 +2,19 @@ const request = require('supertest');
 const app = require('./app');
 
 describe('Express Routing Tests', () => {
-    test('GET / returns the root welcome message', async () => {
-        const response = await request(app).get('/');
+    test('GET /hobby returns the HTML form', async () => {
+        const response = await request(app).get('/hobby');
         expect(response.statusCode).toBe(200);
-        expect(response.text).toBe('Welcome to the EC2 Deployment Homepage!');
+        expect(response.text).toContain('<form'); // Verifies form exists
     });
 
-    test('GET /:name returns the dynamic welcome message', async () => {
-        const response = await request(app).get('/Jenkins');
+    test('POST /hobby processes form data correctly', async () => {
+        const response = await request(app)
+            .post('/hobby')
+            .type('form')
+            .send({ userName: 'Selva', userHobby: 'Cooking' });
+        
         expect(response.statusCode).toBe(200);
-        expect(response.text).toBe('Welcome Jenkins');
+        expect(response.text).toBe('Hi Selva your hobby is Cooking');
     });
 });

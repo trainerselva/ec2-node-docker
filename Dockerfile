@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:alpine
 WORKDIR /usr/src/app
 # Copy dependency manifests first to leverage Docker layer caching
 COPY package*.json ./

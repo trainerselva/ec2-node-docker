@@ -4,7 +4,7 @@ pipeline {
         // The Docker Hub repository to store the built image
         DOCKER_IMAGE = 'trainerselva/jenkinstest'
         // The Private or Public IP of the target deployment EC2 instance
-        TARGET_EC2_IP = '18.212.212.13' 
+        TARGET_EC2_IP = '54.167.106.115' 
     }
     stages {
         stage('Checkout Source Code') {
@@ -40,7 +40,11 @@ pipeline {
             }
         }
         
+        // NEW CONDITIONAL LOGIC: This stage ONLY runs on the main branch
         stage('Deploy to Target EC2') {
+            when {
+                branch 'main'
+            }            
             steps {
                 // Use the SSH Agent plugin to connect to the target EC2 instance
                 sshagent(['target-ec2-key']) {
