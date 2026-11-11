@@ -22,7 +22,7 @@ app.get('/hobby', (req, res) => {
 // 2. POST route: Receives the form submission and extracts the variables
 app.post('/hobby', (req, res) => {
     const { userName, userHobby } = req.body;
-    res.send(`Hi ${userName} your hobby is ${userHobby}`);
+    res.send(`Hi ${userName} your hobby is ${userHobby}!!`);
 });
 
 // 3. Dynamic wildcard route (must stay at the bottom)

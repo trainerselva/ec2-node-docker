@@ -4,7 +4,7 @@ pipeline {
         // The Docker Hub repository to store the built image
         DOCKER_IMAGE = 'trainerselva/jenkinstest'
         // The Private or Public IP of the target deployment EC2 instance
-        TARGET_EC2_IP = '54.167.106.115' 
+        TARGET_EC2_IP = '54.225.51.201' 
     }
     stages {
         stage('Checkout Source Code') {
@@ -32,8 +32,8 @@ pipeline {
         
         stage('Build & Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                    sh "echo \$PASS | docker login -u \$USER --password-stdin"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
                     sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
                     sh "docker push ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
                 }
